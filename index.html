@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex Class</title>
+    <meta name="google-site-verification" content="xKm_uqjpDUAmzOmHqtbmAEiry9DgNbWorgkW6rLG7HI" />
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1f4037, #99f2c8);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Button Styles */
+        .futuristic-btn {
+            background: linear-gradient(45deg, #ff512f, #dd2476);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+            margin: 10px;
+        }
+
+        .futuristic-btn:hover {
+            background: linear-gradient(45deg, #dd2476, #ff512f);
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        embed {
+            margin-top: 20px;
+            border: none;
+            width: 90%;
+            height: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+        }
+
+        a {
+            color: #ff512f;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* About Section */
+        .about-container {
+            text-align: center;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .about-container h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ff416c;
+            text-shadow: 0 4px 10px rgba(255, 65, 108, 0.7);
+        }
+
+        .about-container p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-container img {
+            margin-top: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 200px;
+            height: auto;
+            animation: zoomIn 3s ease-in-out;
+        }
+
+        /* Animation: Astronauts and Moon */
+        .animation-container {
+            margin-top: 30px;
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #001f3f, #1f1f2e);
+        }
+
+        .moon {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #e0e0e0, #bdbdbd);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+        }
+
+        .spaceship {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(to bottom, #ff416c, #dd2476);
+            clip-path: polygon(50% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            animation: descend 5s ease-in-out infinite;
+        }
+
+        .astronaut {
+            position: absolute;
+            bottom: 80px;
+            left: 48%;
+            width: 50px;
+            height: 50px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: float 4s ease-in-out infinite alternate;
+        }
+
+        .astronaut:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        /* Animations */
+        @keyframes descend {
+            0% {
+                top: -150px;
+            }
+            50% {
+                top: 100px;
+            }
+            100% {
+                top: 50px;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Codex: Learn HTML & CSS</h1>
+        <button class="futuristic-btn" id="learnBtn">Start</button>
+
+        <!-- PDF Embed Section -->
+        <div id="pdfContainer" class="hidden">
+            <h2>Click on download below: Code.pdf</h2>
+            <embed src="code.pdf" width="100%" height="500px" />
+            <p>
+                <a href="code.pdf" target="_blank">Click here to view or download the PDF</a>
+            </p>
+        </div>
+    </div>
+
+        <!-- Astronaut Animation -->
+        <div class="animation-container">
+            <div class="moon"></div>
+            <div class="spaceship"></div>
+            <div class="astronaut"></div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle button clicks
+        document.getElementById("learnBtn").addEventListener("click", function () {
+            // Show the PDF container
+            document.getElementById("pdfContainer").classList.remove("hidden");
+            this.style.display = "none"; // Hide the Start button
+        });
+    </script>
+</body>
+</html>
+<div class="coding-journey">
+    <h2>Embark on Your Coding Journey</h2>
+    <p>
+        Learning to code can be an exciting and rewarding experience. With this website, you'll discover the fundamentals of HTML, CSS, and more. By the end of this journey, you'll have the skills to create your own stunning and interactive websites. Coding is not just about building websites—it's about expressing creativity and solving problems in innovative ways.
+    </p>
+    <p>
+        We provide guidance on the tools you’ll need to succeed. Below is a list of popular tools for coding on both computers and mobile devices:
+    </p>
+    
+    <div class="tools">
+        <h3>Tools for Computers</h3>
+        <ul>
+            <li><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a> - A powerful, lightweight editor for coding.</li>
+            <li><a href="https://notepad-plus-plus.org/" target="_blank">Notepad++</a> - A simple yet effective text editor for programming.</li>
+            <li><a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a> - A specialized editor for web development.</li>
+        </ul>
+
+        <h3>Tools for Mobile Devices</h3>
+        <ul>
+            <li><a href="https://play.google.com/store/apps/details?id=com.termux" target="_blank">Termux</a> - A terminal emulator for Android.</li>
+            <li><a href="https://play.google.com/store/apps/details?id=ru.iiec.pydroid3" target="_blank">Pydroid 3</a> - A Python IDE for Android.</li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.aide.ui" target="_blank">AIDE</a> - An IDE for Android development.</li>
+        </ul>
+    </div>
+    
+    <p>
+        Start your journey today and transform your ideas into reality. Happy coding!
+    </p>
+</div>
+
+<style>
+    /* Coding Journey Section Styles */
+    .coding-journey {
+        margin-top: 40px;
+        padding: 20px;
+        background: linear-gradient(135deg, #004e92, #000428);
+        border-radius: 10px;
+        color: white;
+        text-align: left;
+        max-width: 800px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    .coding-journey h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .coding-journey p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .coding-journey ul {
+        margin: 10px 0;
+        padding-left: 20px;
+    }
+
+    .coding-journey li {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .coding-journey a {
+        color: #ff9f43;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .coding-journey a:hover {
+        color: #ffeaa7;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+<!-- Code Samples Section -->
+<div class="code-samples">
+    <h2>Explore Code in Action</h2>
+    <div class="sample-container">
+        <!-- HTML Code Sample -->
+        <div class="code-sample" onclick="showCodeModal('html')">
+            <h3>HTML Code Sample</h3>
+            <div class="code-display" id="htmlDisplay"></div>
+        </div>
+
+        <!-- CSS Code Sample -->
+        <div class="code-sample" onclick="showCodeModal('css')">
+            <h3>CSS Code Sample</h3>
+            <div class="code-display" id="cssDisplay"></div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+<style>
+    /* Code Samples Section */
+    .code-samples {
+        margin-top: 40px;
+        padding: 20px;
+        background: linear-gradient(135deg, #000428, #004e92);
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        max-width: 800px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        animation: fadeInMajestic 2s ease-in-out;
+    }
+
+    .code-samples h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .sample-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .code-sample {
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .code-sample:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .code-display {
+        background: #1a1a1a;
+        color: #00ffcc;
+        font-family: 'Courier New', monospace;
+        padding: 10px;
+        border-radius: 5px;
+        height: 100px;
+        overflow-y: auto;
+        font-size: 0.9rem;
+    }
+
+    /* Modal */
+    #codeModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        text-align: center;
+        position: relative;
+    }
+
+    .modal-content h3 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .close-btn {
+        background: linear-gradient(45deg, #ff512f, #dd2476);
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .close-btn:hover {
+        background: linear-gradient(45deg, #dd2476, #ff512f);
+    }
+
+    @keyframes fadeInMajestic {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    // Auto-Typing Effect
+    const htmlCode = `<div>\n  <h1>Welcome to Codex</h1>\n  <p>Learn to create stunning websites with HTML & CSS.</p>\n</div>`;
+    const cssCode = `body {\n  background: linear-gradient(135deg, #1f4037, #99f2c8);\n  color: white;\n  font-family: Arial, sans-serif;\n}`;
+
+    function autoType(elementId, code, index = 0) {
+        const displayElement = document.getElementById(elementId);
+        if (index < code.length) {
+            displayElement.textContent += code[index];
+            setTimeout(() => autoType(elementId, code, index + 1), 50);
+        }
+    }
+
+    // Run Auto-Typing Effect
+    window.onload = () => {
+        autoType("htmlDisplay", htmlCode);
+        autoType("cssDisplay", cssCode);
+    };
+
+    // Modal Functions
+    function showCodeModal(type) {
+        const modal = document.getElementById("codeModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalCode = document.getElementById("modalCode");
+        modal.classList.remove("hidden");
+        modalCode.textContent = "";
+
+        if (type === "html") {
+            modalTitle.textContent = "HTML Code Sample";
+            autoType("modalCode", htmlCode);
+        } else if (type === "css") {
+            modalTitle.textContent = "CSS Code Sample";
+            autoType("modalCode", cssCode);
+        }
+    }
+
+    function hideCodeModal() {
+        document.getElementById("codeModal").classList.add("hidden");
+    }
+</script>
+<div class="machine-language-sample">
+    <h1>Machine Language Sample</h1>
+    <div class="machine-code">
+        10101010 00000001 11001101  <span style="color: #ff6666;">; MOV A, 01</span><br>
+        10111010 11110000 00001111  <span style="color: #ff6666;">; OUT F0</span><br>
+        11000010 00000010 00000110  <span style="color: #ff6666;">; ADD B, 06</span><br>
+        11101000 11111111 00001100  <span style="color: #ff6666;">; JMP -4</span><br>
+        00000000 11100010 00000100  <span style="color: #ff6666;">; NOP</span><br>
+        10100011 11001000 00101100  <span style="color: #ff6666;">; LOAD C, 2C</span>
+    </div>
+    <p class="legend">
+        This machine language sample represents simple operations. Each instruction is encoded in binary.<br>
+        The comments (after the semicolon) describe the corresponding assembly instruction for clarity.
+    </p>
+</div>
+
+<style>
+    .machine-language-sample {
+        background: #1a1a1a;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        color: white;
+        font-family: Arial, sans-serif;
+        max-width: 500px;
+        margin: 20px auto;
+    }
+
+    .machine-language-sample h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #00ffcc;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .machine-code {
+        background: #000000;
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 1rem;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap; /* Allows wrapping */
+        line-height: 1.5;
+        max-width: 100%; /* Adjust to content width */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .legend {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: #cfcfcf;
+        text-align: center;
+    }
+</style>
+<div class="python-sample">
+    <h1>Python Code Sample</h1>
+    <div class="python-code">
+        <span style="color: #ff5733;"># Simple Python Program</span><br>
+        <span style="color: #ffd700;">def</span> <span style="color: #00ffcc;">greet</span>(name):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffd700;">return</span> <span style="color: #ff6666;">f"Hello, {name}!"</span><br><br>
+        <span style="color: #00ffcc;">print</span>(greet(<span style="color: #ff6666;">"World"</span>))
+    </div>
+    <p class="legend">
+        This Python program defines a function to greet a user and prints a greeting message.
+    </p>
+</div>
+
+<style>
+    .python-sample {
+        background: #1e1e1e;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        color: white;
+        font-family: Arial, sans-serif;
+        max-width: 450px;
+        margin: 20px auto;
+    }
+
+    .python-sample h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #ffa07a;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .python-code {
+        background: #282a36;
+        color: #f8f8f2;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap; /* Allows wrapping */
+        line-height: 1.5;
+        max-width: 100%; /* Adjusts to content width */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .legend {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: #cfcfcf;
+        text-align: center;
+    }
+</style>
+<div class="contact-me">
+    <h1>Contact Me</h1>
+    <p>
+        Do you have any questions, feedback, or need further training? Feel free to reach out! I am here to help you with 
+        more detailed notes, personalized guidance, and additional training materials. Whether you're stuck, have suggestions, 
+        or want to dive deeper into coding and other topics, don't hesitate to get in touch.
+    </p>
+
+    <div class="contact-details">
+        <h2>How to Reach Me:</h2>
+        <p><strong>Email:</strong> <a href="mailto:corneliuskandulu@gmail.com">corneliuskandulu@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+265986103388">+265 986 103 388</a></p>
+    </div>
+
+    <div class="why-contact">
+        <h2>Why Contact Me?</h2>
+        <ul>
+            <li>Get answers to your specific questions.</li>
+            <li>Receive personalized coding notes and examples.</li>
+            <li>Learn advanced tips and tricks to improve your skills.</li>
+            <li>Access exclusive training and resources tailored to your needs.</li>
+        </ul>
+        <p>
+            I value your input and am dedicated to helping you succeed. By reaching out, you'll gain clarity, grow your skills, 
+            and make the most out of your learning journey.
+        </p>
+    </div>
+</div>
+
+<div class="contact-me">
+    <h1>Contact Me</h1>
+    <p>
+        Do you have any questions, feedback, or need further training? Feel free to reach out! I am here to help you with 
+        more detailed notes, personalized guidance, and additional training materials. Whether you're stuck, have suggestions, 
+        or want to dive deeper into coding and other topics, don't hesitate to get in touch.
+    </p>
+
+    <div class="contact-details">
+        <h2>How to Reach Me:</h2>
+        <p><strong>Email:</strong> <a href="mailto:corneliuskandulu@gmail.com">corneliuskandulu@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+265986103388">+265 986 103 388</a></p>
+    </div>
+
+    <div class="why-contact">
+        <h2>Why Contact Me?</h2>
+        <ul>
+            <li>Get answers to your specific questions.</li>
+            <li>Receive personalized coding notes and examples.</li>
+            <li>Learn advanced tips and tricks to improve your skills.</li>
+            <li>Access exclusive training and resources tailored to your needs.</li>
+        </ul>
+        <p>
+            I value your input and am dedicated to helping you succeed. By reaching out, you'll gain clarity, grow your skills, 
+            and make the most out of your learning journey.
+        </p>
+    </div>
+</div>
+
+<style>
+    .contact-me {
+        background: #2e6b2f; /* Dark green */
+        color: #fff; /* White text for contrast */
+        padding: 30px;
+        margin: 20px auto;
+        max-width: 800px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .contact-me h1 {
+        text-align: center;
+        color: #fff; /* White text */
+        margin-bottom: 20px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-me p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .contact-details {
+        background: #1f5322; /* Darker green for contact details */
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .contact-details a {
+        color: #fff; /* White text for links */
+        text-decoration: none;
+    }
+
+    .contact-details a:hover {
+        text-decoration: underline;
+    }
+
+    .why-contact {
+        background: #3b7b3e; /* A medium-dark green for the 'why contact me' section */
+        border-left: 5px solid #fff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .why-contact ul {
+        list-style: disc;
+        margin-left: 20px;
+    }
+
+    .why-contact ul li {
+        margin-bottom: 10px;
+    }
+</style>
+</style>
+</style>
+<!-- About Section -->
+    <div class="about-container">
+        <h2>About CorneliusKandulu</h2>
+        <p>
+            Cornelius Kandulu is a full-time web developer and law student with a passion for creating stunning and functional websites.
+            As a tech enthusiast, he combines his knowledge of technology and law to bring innovative solutions to life. Cornelius is 
+            known for his dedication, creativity, and ability to simplify complex concepts into user-friendly designs.
+        </p>
+        <img src="cake3.jpg" alt="Cornelius Kandulu">
+<!-- Coding and Life Section -->
+<section id="coding-life">
+    <div class="background-binary">
+        <div class="content">
+            <h2>Coding: A Key to Unlocking Limitless Potential</h2>
+            <p>
+                In today's digital age, coding has evolved from a niche skill into an essential tool for shaping the future. Learning how to code opens doors to endless possibilities, from creating cutting-edge applications to solving real-world problems. By understanding the logic behind coding, individuals gain the ability to think critically, problem-solve, and innovate in ways that improve both personal and professional lives. Whether you want to build a career in tech, start a business, or create something that can change the world, coding empowers you to bring your ideas to life. It's not just about writing lines of code—it's about learning a universal language that connects ideas, people, and technology. As technology continues to advance, the power of coding will remain at the heart of innovation, making it one of the most valuable skills to have in the 21st century.
+            </p>
+            <h3>Successful Programmers Who Changed the World:</h3>
+            <ul>
+                <li><a href="https://www.mark Zuckerberg" target="_blank">Mark Zuckerberg (Facebook)</a></li>
+                <li><a href="https://www.billgates.com" target="_blank">Bill Gates (Microsoft)</a></li>
+                <li><a href="https://www.elonmusk.com" target="_blank">Elon Musk (Tesla, SpaceX)</a></li>
+                <li><a href="https://www.larrypage.com" target="_blank">Larry Page (Google)</a></li>
+                <li><a href="https://www.jeffbezos.com" target="_blank">Jeff Bezos (Amazon)</a></li>
+            </ul>
+            <div class="interactive-footer">
+                <p>Happy Coding with Codex by <strong>Cornelius Kandulu</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
